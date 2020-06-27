@@ -15,10 +15,15 @@ def insertion_sort(arr):
         arr[j + 1] = temp
 
 
-arr = array([random() for i in range(10)])
-insertion_sort(arr)
+def main():
+    arr = array([random() for i in range(10)])
+    insertion_sort(arr)
 
-if check_correctness(arr):
-    print("INSERTION SORT OK")
-else:
-    print("INSERTION SORT FAIL")
+    if check_correctness(arr):
+        print("INSERTION SORT OK")
+    else:
+        print("INSERTION SORT FAIL")
+
+
+if __name__ == "__main__":
+    main()
