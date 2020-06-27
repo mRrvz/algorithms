@@ -46,8 +46,7 @@ def max_subarray(arr, l, h):
 
 def main():
     arr = [randint(-10, 10) for x in range(10)]
-    print(arr)
-    print(max_subarray(arr, 0, len(arr) - 1))
+    print("ARRAY: ", arr, "\nRESULT:", max_subarray(arr, 0, len(arr) - 1))
 
 
 if __name__ == "__main__":
