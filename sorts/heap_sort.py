@@ -1,43 +1,82 @@
-def parent(i):
-    return 2 // i + 1
+from random import randint
+from utils import check_correctness
 
 
-def right(i):
-    return 2 * i + 2
+class Heap():
+    def __init__(self, array, hsize):
+        self.arr = array
+        self.heap_size = hsize
+
+        for i in range(self.get_hsize() // 2, -1, -1):
+            self.max_heapify(i)
 
 
-def left(i):
-    return 2 * i + 1
+    def max_heapify(self, i):
+        l = self.left(i)
+        r = self.right(i)
+
+        largest = l if self.get_hsize() > l and self.get_key(l) > self.get_key(i) else i
+        largest = r if self.get_hsize() > r and self.get_key(r) > self.get_key(largest) else largest
+
+        if largest != i:
+            self.swap(largest, i)
+            self.max_heapify(largest)
 
 
-def max_heapify(arr, i):
-    l = left(i)
-    r = right(i)
+    def parent(self, i):
+        return 2 // i + 1
 
-    if len(arr) > l and arr[l] > arr[i]:
-        largest = l
-    else:
-        largest = i
-
-    if len(arr) > r and arr[r] > arr[largest]:
-        largest = r
-
-    if largest != i:
-        arr[largest], arr[i] = arr[i], arr[largest]
-        max_heapify(arr, largest)
+    
+    def right(self, i):
+        return 2 * i + 2
 
 
-def build_max_heap(arr):
-    for i in range(len(arr) // 2, -1, -1):
-        max_heapify(arr, i)
+    def left(self, i):
+        return 2 * i + 1
+
+
+    def get_array(self):
+        return self.arr
+
+
+    def get_hsize(self):
+        return self.heap_size
+
+
+    def set_array(self, array):
+        self.arr = arr
+
+
+    def set_hsize(self, hsize):
+        self.heap_size = hsize
+
+
+    def swap(self, i, j):
+        self.arr[j], self.arr[i] = self.arr[i], self.arr[j]
+
+
+    def get_key(self, i):
+        return self.arr[i]
+
+
+def heap_sort(arr):
+    heap = Heap(arr, len(arr))
+
+    for i in range(len(arr) - 1, 0, -1):
+        heap.swap(i, 0)
+        heap.set_hsize(heap.get_hsize() - 1)
+        heap.max_heapify(0)
+
+    return heap.get_array()
 
 
 def main():
-    #arr = [16, 4, 10, 14, 7, 9, 3, 2, 8, 1]
-    arr = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
-    build_max_heap(arr)
-    #max_heapify(arr, 1)
-    print(arr)
+    arr = [randint(0, 10) for i in range(11)]
+
+    if check_correctness(heap_sort(arr)):
+        print("HEAP SORT IS OK")
+    else:
+        print("HEAP SORT FAIL")
 
 
 if __name__ == "__main__":
