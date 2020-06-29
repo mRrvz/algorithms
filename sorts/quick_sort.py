@@ -15,10 +15,16 @@ def partition(arr, p, r):
     return i + 1
 
 
+def randomized_partition(arr, p, r):
+    i = randint(p, r)
+    arr[i], arr[r] = arr[r], arr[i]
+    return partition(arr, p, r)
+
+
 def quick_sort(arr):
     def __quick_sort(arr, p, r):
         if p < r:
-            q = partition(arr, p, r)
+            q = randomized_partition(arr, p, r)
             __quick_sort(arr, p, q - 1)
             __quick_sort(arr, q + 1, r)
 
