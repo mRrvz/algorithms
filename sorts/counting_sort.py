@@ -3,13 +3,14 @@ from utils import check_correctness
 
 
 def counting_sort(arr):
-    arr_copy = [0 for x in range(len(arr))]
+    k = max(arr)
+    arr_copy = [0 for x in range(k)]
     sorted_arr = [0 for x in range(len(arr))]
 
     for key in arr:
         arr_copy[key - 1] += 1
 
-    for i in range(1, len(arr)):
+    for i in range(1, k):
         arr_copy[i] += arr_copy[i - 1]
 
     for i in range(len(arr) - 1, -1, -1):
@@ -20,7 +21,7 @@ def counting_sort(arr):
 
 
 def main():
-    print(arr := [randint(1, 10) for x in range(10)])
+    print(arr := [randint(1, 200) for x in range(10)])
 
     if check_correctness(arr := counting_sort(arr)):
         print("COUNTING SORT IS OK")
